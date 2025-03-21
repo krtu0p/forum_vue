@@ -50,7 +50,7 @@
 
 <script setup>
 import { reactive } from 'vue';
-import axios from 'axios';
+import apiClient from '../utils/api';
 
 const formData = reactive({
   name: '',
@@ -60,7 +60,8 @@ const formData = reactive({
 
 const handleSubmit = async () => {
   try {
-    const response = await axios.post('/memberships/sign-up', formData);
+    console.log('Sending registration payload:', formData); // Debug log
+    const response = await apiClient.post('/memberships/sign-up', formData);
     if (response.status === 201) {
       alert('Registration successful!');
       // Optionally redirect to login page or clear the form
