@@ -1,0 +1,39 @@
+/* src/assets/main.css */
+body {
+  background-color: #000; /* Black background */
+  color: #fff; /* White text */
+  font-family: Arial, sans-serif;
+}
+
+.navbar {
+  background-color: #4b0082 !important; /* Indigo purple */
+}
+
+.navbar-brand,
+.nav-link {
+  color: #fff !important; /* White text */
+}
+
+.btn-purple {
+  background-color: #4b0082; /* Indigo purple */
+  border: none;
+  color: #fff;
+}
+
+.btn-purple:hover {
+  background-color: #6a0dad; /* Darker purple */
+}
+
+.hero-section {
+  background: linear-gradient(135deg, #4b0082, #2c3e50); /* Gradient purple */
+  color: #fff;
+}
+
+.features-section {
+  background-color: #1c1c1c; /* Dark gray */
+}
+
+.footer {
+  background-color: #4b0082; /* Indigo purple */
+  color: #fff;
+}
