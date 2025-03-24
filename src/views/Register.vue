@@ -7,13 +7,13 @@
             <h2 class="card-title text-center mb-4">Register</h2>
             <form @submit.prevent="handleSubmit">
               <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
+                <label for="username" class="form-label">Username</label>
                 <input
                     type="text"
                     class="form-control bg-dark text-white"
-                    id="name"
-                    v-model="formData.name"
-                    placeholder="Enter your name"
+                    id="username"
+                    v-model="formData.username"
+                    placeholder="Enter your username"
                     required
                 />
               </div>
@@ -53,19 +53,33 @@ import { reactive } from 'vue';
 import apiClient from '../utils/api';
 
 const formData = reactive({
-  name: '',
+  username: '',
   email: '',
   password: '',
 });
 
 const handleSubmit = async () => {
   try {
-    console.log('Sending registration payload:', formData); // Debug log
-    const response = await apiClient.post('/memberships/sign-up', formData);
+    // Normalize email to lowercase
+    const normalizedEmail = formData.email.toLowerCase();
+
+    console.log('Sending registration payload:', {
+      email: normalizedEmail,
+      username: formData.username,
+      password: formData.password,
+    });
+
+    // Send the registration request
+    const response = await apiClient.post('/memberships/sign-up', {
+      email: normalizedEmail,
+      username: formData.username,
+      password: formData.password,
+    });
+
     if (response.status === 201) {
       alert('Registration successful!');
-      // Optionally redirect to login page or clear the form
-      formData.name = '';
+      // Clear the form
+      formData.username = '';
       formData.email = '';
       formData.password = '';
     }

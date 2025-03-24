@@ -20,12 +20,13 @@ const handleSubmit = async () => {
     const hashtagArray = hashtags.value
         .split(',')
         .map((tag) => tag.trim())
-        .filter((tag) => tag.length > 0);
+        .filter((tag) => tag.length > 0)
+        .slice(0, 20); // Limit to 20 hashtags
 
     const response = await apiClient.post('/posts/create', {
       userID: parseInt(userID), // Include the userID in the payload
-      postTitle: title.value,
-      postContent: content.value,
+      postTitle: title.value.substring(0, 300), // Limit to 300 characters
+      postContent: content.value.substring(0, 2000), // Limit to 2000 characters
       postHashtags: hashtagArray,
     });
 
@@ -54,7 +55,11 @@ const handleSubmit = async () => {
             class="form-control bg-dark text-white"
             placeholder="Enter a title for your post..."
             required
+            maxlength="300"
         />
+        <span class="text-muted">
+          {{ title.length }}/{{ 300 }}
+        </span>
       </div>
 
       <!-- Content Field -->
@@ -67,7 +72,11 @@ const handleSubmit = async () => {
             rows="5"
             placeholder="Write your post here..."
             required
+            maxlength="20000"
         ></textarea>
+        <span class="text-muted">
+          {{ content.length }}/{{ 20000 }}
+        </span>
       </div>
 
       <!-- Hashtags Field -->
@@ -78,7 +87,7 @@ const handleSubmit = async () => {
             v-model="hashtags"
             type="text"
             class="form-control bg-dark text-white"
-            placeholder="Enter hashtags separated by commas (e.g., go, gin)"
+            placeholder="Enter up to 20 hashtags separated by commas (e.g., go, gin)"
         />
       </div>
 
